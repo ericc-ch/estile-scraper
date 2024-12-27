@@ -1,5 +1,9 @@
+import type { LanguageModelV1 } from "ai"
+
+import { createGoogleGenerativeAI } from "@ai-sdk/google"
 import { Ollama } from "ollama"
 import { createOllama } from "ollama-ai-provider"
+import { isProduction } from "std-env"
 
 import { ENV } from "~/lib/vars/env"
 
@@ -14,3 +18,19 @@ export const _ollama = new Ollama({
 export const ollama = createOllama({
   baseURL: ENV.OLLAMA_BASEURL,
 })
+
+export const gemini = createGoogleGenerativeAI({
+  apiKey: ENV.GEMINI_API_KEY,
+})
+
+export const getModel = () => {
+  let model: LanguageModelV1
+
+  if (isProduction) {
+    model = gemini(ENV.GEMINI_MODEL)
+  } else {
+    model = ollama(ENV.OLLAMA_MODEL)
+  }
+
+  return model
+}

@@ -10,4 +10,7 @@ export const ENV = {
   OLLAMA_HOST,
   OLLAMA_MODEL,
   OLLAMA_BASEURL,
+
+  GEMINI_API_KEY: getEnv("GEMINI_API_KEY"),
+  GEMINI_MODEL: getEnv("GEMINI_MODEL", "gemini-1.5-flash-8b"),
 }
