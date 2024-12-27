@@ -2,9 +2,9 @@
 GET http://localhost:3000/
 
 ### Test the search endpoint
-POST http://localhost:3000/search
+POST http://localhost:3000/api/search
 Content-Type: application/json
 
 {
-  "query": "yellow shoes"
+  "query": "dougdoug mugmug"
 }
