@@ -2,8 +2,9 @@ import * as cheerio from "cheerio"
 import { Hono } from "hono"
 
 import { createPage } from "~/lib/browser"
-import { extractProductInfo } from "~/lib/html/extract-product-info"
 import { SELECTORS } from "~/lib/vars/selectors"
+
+import { extractProductInfo } from "./extract-product-info"
 
 export const search = new Hono()
 

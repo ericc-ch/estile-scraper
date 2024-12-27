@@ -6,5 +6,16 @@ POST http://localhost:3000/api/search
 Content-Type: application/json
 
 {
-  "query": "dougdoug mugmug"
+  "query": "dougdoug"
+}
+
+### Test the recommendation endpoint
+POST http://localhost:3000/api/recommendation
+Content-Type: application/json
+
+{
+  "request": "Recommend an outfit for a summer evening",
+  "gender": "female",
+  "height": 165,
+  "skin_tone": "medium"
 }
