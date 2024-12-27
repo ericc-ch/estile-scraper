@@ -11,6 +11,7 @@
     "@hono/node-server": "^1.13.7",
     "@types/cheerio": "^0.22.35",
     "cheerio": "^1.0.0",
+    "consola": "^3.3.3",
     "hono": "^4.6.14",
     "nano-spawn": "^0.2.0",
     "pathe": "^1.1.2",
