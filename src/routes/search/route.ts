@@ -1,7 +1,7 @@
 import * as cheerio from "cheerio"
 import { Hono } from "hono"
 
-import { createContext } from "~/lib/browser"
+import { createPage } from "~/lib/browser"
 import { extractProductInfo } from "~/lib/html/extract-product-info"
 import { SELECTORS } from "~/lib/vars/selectors"
 
@@ -17,9 +17,8 @@ search.post("/", async (c) => {
 })
 
 async function searchEbay(query: string) {
-  const context = await createContext()
-  const page = await context.newPage()
-  await page.goto("https://www.ebay.com/")
+  const { page, cleanup } = await createPage()
+  await page.goto("https://www.ebay.com")
 
   await page.locator(SELECTORS.SEARCH_INPUT).fill(query)
   await page.keyboard.press("Enter")
@@ -37,7 +36,7 @@ async function searchEbay(query: string) {
     .map((element) => extractProductInfo($, element))
     .filter((product) => product.id)
 
-  await context.close()
+  await cleanup()
 
   return products
 }

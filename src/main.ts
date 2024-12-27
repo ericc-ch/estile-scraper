@@ -1,12 +1,10 @@
+import { serve } from "@hono/node-server"
 import { Hono } from "hono"
 import { cors } from "hono/cors"
 import { logger } from "hono/logger"
-import { isLinux } from "std-env"
 
 import { browser } from "./lib/browser"
-import { search } from "./routes/search"
-
-if (!isLinux) throw new Error("estile server is only supported on Linux")
+import { search } from "./routes/search/route"
 
 const app = new Hono()
 app.use(logger())
@@ -18,8 +16,10 @@ app.get("/", (c) => {
 
 app.route("/api/search", search)
 
-export default app
-
 process.on("exit", () => {
   void browser.close()
+})
+
+serve(app, () => {
+  console.log("estile server is running")
 })
