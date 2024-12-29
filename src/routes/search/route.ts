@@ -17,12 +17,22 @@ search.post("/", async (c) => {
   return c.json({ data: products })
 })
 
-async function searchEbay(query: string) {
-  const { page, cleanup } = await createPage()
-  await page.goto("https://www.ebay.com")
+// URL Shape
+// https://www.ebay.com/sch/i.html?_nkw=search&_sacat=0
 
-  await page.locator(SELECTORS.SEARCH_INPUT).fill(query)
-  await page.keyboard.press("Enter")
+async function searchEbay(query: string) {
+  const baseURL = "https://www.ebay.com/sch/i.html"
+
+  const url = new URL(baseURL)
+  url.searchParams.set("_sacat", "0")
+  url.searchParams.set("_nkw", query)
+
+  const { page, cleanup } = await createPage()
+
+  await page.goto(url.toString())
+
+  // await page.locator(SELECTORS.SEARCH_INPUT).fill(query)
+  // await page.keyboard.press("Enter")
 
   await page.waitForSelector(SELECTORS.MAIN_CONTENT)
 
