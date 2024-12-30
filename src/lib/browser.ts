@@ -39,7 +39,7 @@ export const createPage = async () => {
   if (isProduction) {
     const browser = await Browser.getInstance()
     page = await browser.newPage()
-    cleanup = () => page.close()
+    cleanup = () => Browser.close()
   } else {
     const context = await createContext()
     page = await context.newPage()
@@ -81,6 +81,22 @@ export class Browser {
     }
 
     return Browser._instance
+  }
+
+  static async close() {
+    if (Browser._instance) {
+      // This is the same as Promise<void>
+      // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+      const { promise, resolve } = Promise.withResolvers<void>()
+
+      Browser._closing = promise
+
+      clearTimeout(Browser._idleTimeout)
+      await Browser._instance.close()
+      Browser._instance = undefined
+
+      resolve()
+    }
   }
 
   static resetIdleTimeout() {
