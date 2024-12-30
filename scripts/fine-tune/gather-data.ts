@@ -14,9 +14,9 @@ import { CLOTHING_CATEGORIES } from "./clothing-categories"
 import { arrayToCSV } from "./csv"
 
 const categories =
-  isProduction ? CLOTHING_CATEGORIES : CLOTHING_CATEGORIES.slice(0, 3)
+  isProduction ? CLOTHING_CATEGORIES : CLOTHING_CATEGORIES.slice(0, 5)
 
-const PICKED_COUNT = isProduction ? 10 : 1
+const PICKED_COUNT = isProduction ? 10 : 5
 
 // The reason why only 1 chunk size in production
 // https://docs.brightdata.com/scraping-automation/scraping-browser/configuration#single-navigation-per-session
